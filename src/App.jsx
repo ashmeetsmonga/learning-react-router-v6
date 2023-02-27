@@ -25,7 +25,7 @@ function App() {
 						<Route path='income' element={<Income />} />
 						<Route path='vans' element={<HostVans />} />
 						<Route path='vans/:id' element={<HostVanDetails />}>
-							<Route path='details' />
+							<Route index path='details' />
 							<Route path='pricing' />
 							<Route path='photos' />
 						</Route>
