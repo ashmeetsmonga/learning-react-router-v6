@@ -14,7 +14,9 @@ const Vans = () => {
 			.then((data) => setVans(data.vans));
 	}, []);
 
-	const vanElements = vans?.map((van) => (
+	const displayVans = typeFilter ? vans?.filter((van) => van.type === typeFilter) : vans;
+
+	const vanElements = displayVans.map((van) => (
 		<div key={van.id} className='van-tile'>
 			<Link to={`/vans/${van.id}`}>
 				<img src={van.imageUrl} />
