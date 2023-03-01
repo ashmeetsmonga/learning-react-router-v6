@@ -13,11 +13,11 @@ export default function VanDetail() {
 	}, [params.id]);
 
 	const search = location.state?.search || "";
-	console.log(search);
+	const vansType = location.state?.type || "all";
 	return (
 		<div className='van-detail-container'>
 			<Link to={`..${search}`} relative='path' className='back-button'>
-				&larr; <span>Back to all vans</span>
+				&larr; <span>{`Back to ${vansType} vans`}</span>
 			</Link>
 			{van ? (
 				<div className='van-detail'>
