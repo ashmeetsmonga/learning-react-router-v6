@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Link, useSearchParams } from "react-router-dom";
+import { getVans } from "../../api";
 
 const Vans = () => {
 	const [vans, setVans] = useState([]);
@@ -8,10 +9,11 @@ const Vans = () => {
 	const typeFilter = searchParams.get("type");
 
 	useEffect(() => {
-		console.log("This");
-		fetch("/api/vans")
-			.then((res) => res.json())
-			.then((data) => setVans(data.vans));
+		async function loadVans() {
+			const data = await getVans();
+			setVans(data);
+		}
+		loadVans();
 	}, []);
 
 	const displayVans = typeFilter ? vans?.filter((van) => van.type === typeFilter) : vans;
