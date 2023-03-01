@@ -4,14 +4,17 @@ import { getVans } from "../../api";
 
 const Vans = () => {
 	const [vans, setVans] = useState([]);
+	const [loading, setLoading] = useState(false);
 
 	const [searchParams, setSearchParams] = useSearchParams();
 	const typeFilter = searchParams.get("type");
 
 	useEffect(() => {
 		async function loadVans() {
+			setLoading(true);
 			const data = await getVans();
 			setVans(data);
+			setLoading(false);
 		}
 		loadVans();
 	}, []);
@@ -33,6 +36,8 @@ const Vans = () => {
 			</Link>
 		</div>
 	));
+
+	if (loading) return <h1>Loading...</h1>;
 
 	return (
 		<div className='van-list-container'>
