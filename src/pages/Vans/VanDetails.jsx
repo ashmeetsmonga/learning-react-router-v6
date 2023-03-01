@@ -17,7 +17,7 @@ export default function VanDetail() {
 	return (
 		<div className='van-detail-container'>
 			<Link to={`..${search}`} relative='path' className='back-button'>
-				&larr; <span>{`Back to ${vansType} vans`}</span>
+				&larr; <span>Back to {vansType} vans</span>
 			</Link>
 			{van ? (
 				<div className='van-detail'>
