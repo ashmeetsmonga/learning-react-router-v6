@@ -2,6 +2,10 @@ import React, { useEffect, useState } from "react";
 import { Link, useSearchParams } from "react-router-dom";
 import { getVans } from "../../api";
 
+export async function loader() {
+	return "Vans data goes here";
+}
+
 const Vans = () => {
 	const [vans, setVans] = useState([]);
 	const [loading, setLoading] = useState(false);
