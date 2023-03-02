@@ -17,7 +17,7 @@ const Vans = () => {
 				const data = await getVans();
 				setVans(data);
 			} catch (err) {
-				setError(err);
+				console.log("Error", err);
 			} finally {
 				setLoading(false);
 			}
