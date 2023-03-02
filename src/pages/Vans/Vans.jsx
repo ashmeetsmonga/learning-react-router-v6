@@ -1,12 +1,15 @@
 import React, { useEffect, useState } from "react";
-import { Link, useSearchParams } from "react-router-dom";
+import { Link, useSearchParams, useLoaderData } from "react-router-dom";
 import { getVans } from "../../api";
 
 export async function loader() {
-	return "Vans data goes here";
+	const data = await getVans();
+	return data;
 }
 
 const Vans = () => {
+	const data = useLoaderData();
+	console.log(data);
 	const [vans, setVans] = useState([]);
 	const [loading, setLoading] = useState(false);
 	const [error, setError] = useState(null);
