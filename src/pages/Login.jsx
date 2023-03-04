@@ -6,7 +6,10 @@ export default function Login() {
 	const [loginFormData, setLoginFormData] = useState({ email: "", password: "" });
 	const [status, setStatus] = useState("idle");
 	const [error, setError] = useState(null);
+
 	const location = useLocation();
+	const navigate = useNavigate();
+
 	function handleSubmit(e) {
 		setError(null);
 		e.preventDefault();
@@ -15,6 +18,7 @@ export default function Login() {
 		loginUser(loginFormData)
 			.then((data) => {
 				console.log(data);
+				navigate("/host");
 			})
 			.catch((error) => setError(error.message))
 			.finally(() => setStatus("idle"));
