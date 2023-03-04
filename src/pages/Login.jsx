@@ -8,6 +8,7 @@ export default function Login() {
 	const [error, setError] = useState(null);
 	const location = useLocation();
 	function handleSubmit(e) {
+		setError(null);
 		e.preventDefault();
 		console.log(loginFormData);
 		setStatus("submitting");
@@ -29,9 +30,9 @@ export default function Login() {
 
 	return (
 		<div className='login-container'>
-			{location?.state?.message && <h2>{location.state.message}</h2>}
+			{location?.state?.message && <h2 className='login-error'>{location.state.message}</h2>}
+			{error && <h2 className='login-error'>{error}</h2>}
 			<h1>Sign in to your account</h1>
-			{error ?? <h2>{error}</h2>}
 			<form onSubmit={handleSubmit} className='login-form'>
 				<input
 					name='email'
