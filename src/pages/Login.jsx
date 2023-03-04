@@ -10,7 +10,7 @@ export default function Login() {
 
 	const location = useLocation();
 	const navigate = useNavigate();
-	let from = location?.state?.from?.pathname || "/";
+	let from = location.state?.from || "/";
 
 	function handleSubmit(e) {
 		setError(null);

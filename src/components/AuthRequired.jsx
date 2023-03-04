@@ -6,7 +6,11 @@ const AuthRequired = () => {
 	const location = useLocation();
 	if (auth !== "true")
 		return (
-			<Navigate to='/login' replace state={{ from: location, message: "You must login first" }} />
+			<Navigate
+				to='/login'
+				replace
+				state={{ from: location.pathname, message: "You must login first" }}
+			/>
 		);
 	return <Outlet />;
 };
