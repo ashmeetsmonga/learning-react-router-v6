@@ -3,6 +3,7 @@ import { useNavigate, useLocation } from "react-router-dom";
 import { loginUser } from "../api";
 
 export default function Login() {
+	localStorage.setItem("loggedIn", false);
 	const [loginFormData, setLoginFormData] = useState({ email: "", password: "" });
 	const [status, setStatus] = useState("idle");
 	const [error, setError] = useState(null);
@@ -19,7 +20,7 @@ export default function Login() {
 			.then((data) => {
 				console.log(data);
 				localStorage.setItem("loggedIn", true);
-				navigate("/host");
+				navigate("/host", { replace: true });
 			})
 			.catch((error) => setError(error.message))
 			.finally(() => setStatus("idle"));
