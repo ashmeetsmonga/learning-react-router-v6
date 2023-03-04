@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { loginUser } from "../api";
 
@@ -18,6 +18,7 @@ export default function Login() {
 		loginUser(loginFormData)
 			.then((data) => {
 				console.log(data);
+				localStorage.setItem("loggedIn", true);
 				navigate("/host");
 			})
 			.catch((error) => setError(error.message))
