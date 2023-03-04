@@ -15,11 +15,9 @@ export default function Login() {
 	function handleSubmit(e) {
 		setError(null);
 		e.preventDefault();
-		console.log(loginFormData);
 		setStatus("submitting");
 		loginUser(loginFormData)
 			.then((data) => {
-				console.log(data);
 				localStorage.setItem("loggedIn", true);
 				navigate(from, { replace: true });
 			})
