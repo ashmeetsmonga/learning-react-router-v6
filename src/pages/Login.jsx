@@ -1,6 +1,10 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate, useLocation } from "react-router-dom";
+import { useNavigate, useLocation, Form } from "react-router-dom";
 import { loginUser } from "../api";
+
+export async function action(obj) {
+	console.log(obj);
+}
 
 export default function Login() {
 	localStorage.setItem("loggedIn", false);
@@ -38,25 +42,13 @@ export default function Login() {
 			{location?.state?.message && <h2 className='login-error'>{location.state.message}</h2>}
 			{error && <h2 className='login-error'>{error}</h2>}
 			<h1>Sign in to your account</h1>
-			<form onSubmit={handleSubmit} className='login-form'>
-				<input
-					name='email'
-					onChange={handleChange}
-					type='email'
-					placeholder='Email address'
-					value={loginFormData.email}
-				/>
-				<input
-					name='password'
-					onChange={handleChange}
-					type='password'
-					placeholder='Password'
-					value={loginFormData.password}
-				/>
+			<Form action='/login' method='post' className='login-form'>
+				<input name='email' type='email' placeholder='Email address' />
+				<input name='password' type='password' placeholder='Password' />
 				<button disabled={status === "submitting"}>
 					{status === "idle" ? "Login" : "Logging In"}
 				</button>
-			</form>
+			</Form>
 		</div>
 	);
 }
