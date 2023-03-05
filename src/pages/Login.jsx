@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate, useLocation, Form } from "react-router-dom";
+import { useNavigate, useLocation, Form, useActionData } from "react-router-dom";
 import { loginUser } from "../api";
 
 export async function action({ request }) {
@@ -8,17 +8,21 @@ export async function action({ request }) {
 	const password = formData.get("password");
 	const data = await loginUser({ email, password });
 	localStorage.setItem("loggedIn", true);
-	console.log(data);
+	console.log(localStorage.getItem("loggedIn"));
+	return data;
 }
 
 export default function Login() {
-	localStorage.setItem("loggedIn", false);
 	const [status, setStatus] = useState("idle");
 	const [error, setError] = useState(null);
+	const data = useActionData();
 
 	const location = useLocation();
 	const navigate = useNavigate();
-	let from = location.state?.from || "/";
+	let from = location.state?.from || "/host";
+
+	console.log(data);
+	if (data?.token) navigate(from, { replace: true });
 
 	function handleSubmit(e) {
 		setError(null);
