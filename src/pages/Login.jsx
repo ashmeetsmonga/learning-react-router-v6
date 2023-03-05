@@ -2,13 +2,17 @@ import React, { useEffect, useState } from "react";
 import { useNavigate, useLocation, Form } from "react-router-dom";
 import { loginUser } from "../api";
 
-export async function action(obj) {
-	console.log(obj);
+export async function action({ request }) {
+	const formData = await request.formData();
+	const email = formData.get("email");
+	const password = formData.get("password");
+	const data = await loginUser({ email, password });
+	localStorage.setItem("loggedIn", true);
+	console.log(data);
 }
 
 export default function Login() {
 	localStorage.setItem("loggedIn", false);
-	const [loginFormData, setLoginFormData] = useState({ email: "", password: "" });
 	const [status, setStatus] = useState("idle");
 	const [error, setError] = useState(null);
 
@@ -27,14 +31,6 @@ export default function Login() {
 			})
 			.catch((error) => setError(error.message))
 			.finally(() => setStatus("idle"));
-	}
-
-	function handleChange(e) {
-		const { name, value } = e.target;
-		setLoginFormData((prev) => ({
-			...prev,
-			[name]: value,
-		}));
 	}
 
 	return (
