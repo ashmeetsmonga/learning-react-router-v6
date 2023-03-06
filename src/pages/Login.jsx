@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate, useLocation, Form, useActionData } from "react-router-dom";
+import { useNavigate, useLocation, Form, useActionData, useNavigation } from "react-router-dom";
 import { loginUser } from "../api";
 
 export async function action({ request }) {
@@ -16,28 +16,15 @@ export async function action({ request }) {
 }
 
 export default function Login() {
-	const [status, setStatus] = useState("idle");
 	const data = useActionData();
 
 	const location = useLocation();
 	const navigate = useNavigate();
+	const navigation = useNavigation();
+	console.log(navigation);
 	let from = location.state?.from || "/host";
 
-	console.log(data);
 	if (data?.token) navigate(from, { replace: true });
-
-	// function handleSubmit(e) {
-	// 	setError(null);
-	// 	e.preventDefault();
-	// 	setStatus("submitting");
-	// 	loginUser(loginFormData)
-	// 		.then((data) => {
-	// 			localStorage.setItem("loggedIn", true);
-	// 			navigate(from, { replace: true });
-	// 		})
-	// 		.catch((error) => setError(error.message))
-	// 		.finally(() => setStatus("idle"));
-	// }
 
 	return (
 		<div className='login-container'>
@@ -47,8 +34,8 @@ export default function Login() {
 			<Form action='/login' method='post' className='login-form'>
 				<input name='email' type='email' placeholder='Email address' />
 				<input name='password' type='password' placeholder='Password' />
-				<button disabled={status === "submitting"}>
-					{status === "idle" ? "Login" : "Logging In"}
+				<button disabled={navigation.state === "submitting"}>
+					{navigation.state === "idle" ? "Login" : "Logging In"}
 				</button>
 			</Form>
 		</div>
