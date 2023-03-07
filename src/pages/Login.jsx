@@ -21,7 +21,6 @@ export default function Login() {
 	const location = useLocation();
 	const navigate = useNavigate();
 	const navigation = useNavigation();
-	console.log(navigation);
 	let from = location.state?.from || "/host";
 
 	if (data?.token) navigate(from, { replace: true });
