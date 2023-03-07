@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, Suspense } from "react";
 import { Link, useSearchParams, useLoaderData, defer, Await } from "react-router-dom";
 import { getVans } from "../../api";
 
@@ -13,24 +13,6 @@ const Vans = () => {
 
 	const [searchParams, setSearchParams] = useSearchParams();
 	const typeFilter = searchParams.get("type");
-
-	// const displayVans = typeFilter ? vans?.filter((van) => van.type === typeFilter) : vans;
-
-	// const vanElements = displayVans?.map((van) => (
-	// 	<div key={van.id} className='van-tile'>
-	// 		<Link to={van.id} state={{ search: `?${searchParams.toString()}`, type: typeFilter }}>
-	// 			<img src={van.imageUrl} />
-	// 			<div className='van-info'>
-	// 				<h3>{van.name}</h3>
-	// 				<p>
-	// 					${van.price}
-	// 					<span>/day</span>
-	// 				</p>
-	// 			</div>
-	// 			<i className={`van-type ${van.type} selected`}>{van.type}</i>
-	// 		</Link>
-	// 	</div>
-	// ));
 
 	if (error) return <h1>There is an error: {error.message}</h1>;
 
@@ -62,31 +44,36 @@ const Vans = () => {
 					</button>
 				)}
 			</div>
-			<Await resolve={dataPromise.vans}>
-				{(vansData) => {
-					console.log(vansData);
-					const displayVans = typeFilter
-						? vansData.filter((van) => van.type === typeFilter)
-						: vansData;
+			<Suspense fallback={<h2>Loading...</h2>}>
+				<Await resolve={dataPromise.vans}>
+					{(vansData) => {
+						console.log(vansData);
+						const displayVans = typeFilter
+							? vansData.filter((van) => van.type === typeFilter)
+							: vansData;
 
-					const vanElements = displayVans.map((van) => (
-						<div key={van.id} className='van-tile'>
-							<Link to={van.id} state={{ search: `?${searchParams.toString()}`, type: typeFilter }}>
-								<img src={van.imageUrl} />
-								<div className='van-info'>
-									<h3>{van.name}</h3>
-									<p>
-										${van.price}
-										<span>/day</span>
-									</p>
-								</div>
-								<i className={`van-type ${van.type} selected`}>{van.type}</i>
-							</Link>
-						</div>
-					));
-					return <div className='van-list'>{vanElements}</div>;
-				}}
-			</Await>
+						const vanElements = displayVans.map((van) => (
+							<div key={van.id} className='van-tile'>
+								<Link
+									to={van.id}
+									state={{ search: `?${searchParams.toString()}`, type: typeFilter }}
+								>
+									<img src={van.imageUrl} />
+									<div className='van-info'>
+										<h3>{van.name}</h3>
+										<p>
+											${van.price}
+											<span>/day</span>
+										</p>
+									</div>
+									<i className={`van-type ${van.type} selected`}>{van.type}</i>
+								</Link>
+							</div>
+						));
+						return <div className='van-list'>{vanElements}</div>;
+					}}
+				</Await>
+			</Suspense>
 		</div>
 	);
 };
