@@ -12,7 +12,6 @@ export async function getVans() {
 }
 
 export async function getHostVans() {
-	await sleep(1000);
 	const res = await fetch("/api/host/vans");
 	if (!res.ok) {
 		throw {
