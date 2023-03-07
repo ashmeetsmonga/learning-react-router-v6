@@ -1,9 +1,10 @@
-import React, { useEffect, useState } from "react";
-import { Link, useSearchParams, useLoaderData } from "react-router-dom";
+import React, { useState } from "react";
+import { Link, useSearchParams, useLoaderData, defer } from "react-router-dom";
 import { getVans } from "../../api";
 
-export function loader() {
-	return getVans();
+export async function loader() {
+	const getVansPromise = getVans();
+	return defer({ vans: getVansPromise });
 }
 
 const Vans = () => {
