@@ -9,12 +9,9 @@ export async function loader() {
 
 const Vans = () => {
 	const dataPromise = useLoaderData();
-	const [error, setError] = useState(null);
 
 	const [searchParams, setSearchParams] = useSearchParams();
 	const typeFilter = searchParams.get("type");
-
-	if (error) return <h1>There is an error: {error.message}</h1>;
 
 	return (
 		<div className='van-list-container'>
