@@ -1,5 +1,5 @@
 export async function getVans(id) {
-	throw new Error("Custom Error");
+	// throw new Error("Custom Error");
 	const url = id ? `/api/vans/${id}` : "/api/vans";
 	const res = await fetch(url);
 	if (!res.ok) {
