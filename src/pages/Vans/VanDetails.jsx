@@ -9,9 +9,7 @@ export const loader = ({ params }) => {
 
 export default function VanDetail() {
 	const loaderPromise = useLoaderData();
-	const params = useParams();
 	const location = useLocation();
-	const [van, setVan] = React.useState(null);
 
 	const search = location.state?.search || "";
 	const vansType = location.state?.type || "all";
