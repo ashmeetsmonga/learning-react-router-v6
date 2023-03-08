@@ -9,13 +9,15 @@ const activeStyles = {
 
 export default function HostVanDetail() {
 	const { id } = useParams();
-	console.log(id);
 	const [currentVan, setCurrentVan] = React.useState(null);
-
+	console.log(currentVan);
 	React.useEffect(() => {
 		fetch(`/api/host/vans/${id}`)
 			.then((res) => res.json())
-			.then((data) => setCurrentVan(data.vans[0]));
+			.then((data) => {
+				console.log(data);
+				setCurrentVan(data.vans);
+			});
 	}, []);
 
 	if (!currentVan) {
