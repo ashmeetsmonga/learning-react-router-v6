@@ -14,9 +14,6 @@ export const loader = ({ params }) => {
 };
 
 export default function HostVanDetail() {
-	const { id } = useParams();
-	const [currentVan, setCurrentVan] = React.useState(null);
-
 	const loaderPromise = useLoaderData();
 
 	return (
